@@ -1,0 +1,9 @@
+{
+    "extends": "@netsells",
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
+    "env": {
+        "webextensions": true
+    }
+}
