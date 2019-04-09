@@ -1,1 +1,3 @@
-export default 1;
+import ResponseParser from './response-parser';
+
+export default ResponseParser;
