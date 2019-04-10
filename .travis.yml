@@ -5,6 +5,7 @@ jobs:
     - stage: lint
       script:
         - yarn run lint
+        - yarn run jsdoc
     - stage: test
       script:
         - yarn run test
