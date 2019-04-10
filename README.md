@@ -47,6 +47,53 @@ For a 500 error it will return:
 
 ```javascript
 {
-    [null]: 'Something has gone wrong, sorry'
+    [null]: 'Something went wrong, sorry about that'
 }
+```
+
+## Customisation
+
+### Config
+
+When instantiating the class, you can pass in an object with the following keys
+to override certain behaviour
+
+#### fallbackErrorMessage
+
+The error message used as the last resort, when no other errors could be parsed.
+
+```javascript
+new ResponseParser({
+    fallbackErrorMessage: 'Woops, something went wrong! Please try again later',
+});
+```
+
+### Overrides
+
+You can override the ResponseParser class to change the functionality of it.
+
+When parsing errors, `getErrors` will look for a function based on the status of
+the response, e.g. `getErrorsFor404` for a `404` status. If this doesn't exist,
+it will fallback to a function for the range of the status, in this case
+`getErrorsFor4XX`. Finally if that doesn't exist, it will return the fallback
+error message.
+
+So if you wanted to added custom errors for 404 responses, you could do this:
+
+```javascript
+import ResponseParser from '@netsells/laravel-api-parser';
+
+class MyResponseParser extends ResponseParser {
+    getErrorsFor404() {
+        return {
+            [null]: 'Not found!',
+        };
+    }
+}
+
+const responseParser = new MyResponseParser();
+
+const response = await axios.get('/my-model/12'); // doesn't exist
+
+const errors = responseParser.getErrors(response); // { [null]: 'Not found!' }
 ```
