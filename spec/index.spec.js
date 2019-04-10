@@ -6,13 +6,36 @@ const FALLBACK_ERROR = Object.freeze({
 });
 
 describe('ResponseParser', () => {
+    let responseParser;
+
     it('exists', () => {
         expect(ResponseParser).toBeTruthy();
     });
 
-    describe('when instantiated', () => {
-        let responseParser;
+    describe('when extended and instantiated', () => {
+        let ExtendedResponseParser;
 
+        beforeEach(() => {
+            ExtendedResponseParser = class extends ResponseParser {
+                getErrorsFor404() {
+                    return {
+                        [null]: 'Not found!',
+                    };
+                }
+            };
+
+            responseParser = new ExtendedResponseParser();
+        });
+
+        it('uses the possible new functions for errors', () => {
+            expect(responseParser.getErrors({ status: 404, data: {} }))
+                .toEqual({
+                    [null]: 'Not found!',
+                });
+        });
+    });
+
+    describe('when instantiated', () => {
         beforeEach(() => {
             responseParser = new ResponseParser();
         });
