@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/%40netsells%2Flaravel-api-parser.svg)](https://badge.fury.io/js/%40netsells%2Flaravel-api-parser)
 [![Build Status](https://travis-ci.com/netsells/laravel-api-parser.svg?branch=master)](https://travis-ci.com/netsells/laravel-api-parser)
 [![codecov](https://codecov.io/gh/netsells/laravel-api-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/netsells/laravel-api-parser)
 [![Mutation testing badge](https://badge.stryker-mutator.io/github.com/netsells/laravel-api-parser/master)](https://stryker-mutator.github.io)
