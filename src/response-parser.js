@@ -1,3 +1,21 @@
+/**
+ * Get the range for a response status returns 400 for 404s.
+ *
+ * @param {Number} status
+ *
+ * @returns {Number}
+ */
+export const getStatusRange = status => `${ Math.floor(status / 100) }XX`;
+
+/**
+ * Get the response function for a status
+ *
+ * @param {String|Number} status
+ *
+ * @returns {String}
+ */
+export const getErrorsFunctionName = status => `getErrorsFor${status}`;
+
 export default class ResponseParser {
     constructor({
         fallbackErrorMessage = 'Something went wrong, sorry about that',
@@ -6,35 +24,11 @@ export default class ResponseParser {
     }
 
     /**
-     * Get the response status range, e.g. returns 400 for 404s.
-     *
-     * @param {Object} response
-     *
-     * @returns {Number}
-     */
-    range({ status }) {
-        return `${ Math.floor(status / 100) }XX`;
-    }
-
-    /**
-     * Get the response function for a status
-     *
-     * @param {String|Number} status
-     *
-     * @returns {String}
-     */
-    getErrorsFunctionName(status) {
-        return `getErrorsFor${status}`
-    }
-
-    /**
      * Get errors for 2XX statuses
-     *
-     * @param {Object} response
      *
      * @returns {Object}
      */
-    getErrorsFor2XX(response) {
+    getErrorsFor2XX() {
         // None!
 
         return {};
@@ -43,24 +37,20 @@ export default class ResponseParser {
     /**
      * Get errors for 5XX statuses
      *
-     * @param {Object} response
-     *
      * @returns {Object}
      */
-    getErrorsFor5XX(response) {
+    getErrorsFor5XX() {
         return this.generateFallbackError();
     }
 
     /**
      * Get errors for 4XX statuses
      *
-     * @param {Object} response
+     * @param {Object} data
      *
      * @returns {Object}
      */
-    getErrorsFor4XX(response) {
-        const { data } = response;
-
+    getErrorsFor4XX(data) {
         if (data.errors) {
             if (Array.isArray(data.errors)) {
                 return this.generateGenericError(
@@ -118,17 +108,17 @@ export default class ResponseParser {
      * @returns {Object}
      */
     getErrors(response) {
-        const parseExactFuncName = this.getErrorsFunctionName(response.status);
+        const parseExactFuncName = getErrorsFunctionName(response.status);
 
         if (this[parseExactFuncName]) {
-            return this[parseExactFuncName];
+            return this[parseExactFuncName](response.data);
         }
 
-        const range = this.range(response);
-        const parseFuncName = this.getErrorsFunctionName(range);
+        const range = getStatusRange(response.status);
+        const parseFuncName = getErrorsFunctionName(range);
 
         if (this[parseFuncName]) {
-            return this[parseFuncName];
+            return this[parseFuncName](response.data);
         }
 
         return this.generateFallbackError();
