@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "lint": "eslint ./src",
-    "test": "jest"
+    "test": "jest",
+    "test:mutate": "stryker run"
   },
   "author": "Sam Boylett <sam.boylett@netsells.co.uk>",
   "license": "ISC",
@@ -31,6 +32,9 @@
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@netsells/eslint-config": "^1.8.0",
+    "@stryker-mutator/core": "^1.2.0",
+    "@stryker-mutator/javascript-mutator": "^1.2.0",
+    "@stryker-mutator/jest-runner": "^1.2.0",
     "babel-loader": "^8.0.5",
     "eslint": "^4.10.0",
     "eslint-loader": "^2.1.2",
