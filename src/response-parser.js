@@ -14,9 +14,18 @@ export const getStatusRange = status => `${ Math.floor(status / 100) }XX`;
  *
  * @returns {String}
  */
-export const getErrorsFunctionName = status => `getErrorsFor${status}`;
+export const getErrorsFunctionName = status => `getErrorsFor${ status }`;
 
+/**
+ * Parse responses to extract usable and meaningful error messages
+ */
 export default class ResponseParser {
+    /**
+     * Instantiate the class
+     *
+     * @param {Object} config
+     * @param {String} [config.fallbackErrorMessage]
+     */
     constructor({
         fallbackErrorMessage = 'Something went wrong, sorry about that',
     } = {}) {
@@ -79,7 +88,7 @@ export default class ResponseParser {
     /**
      * Generate a generic error message
      *
-     * @param {Object} response
+     * @param {String} message
      *
      * @returns {Object}
      */
