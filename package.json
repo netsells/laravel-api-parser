@@ -1,10 +1,10 @@
 {
   "name": "@netsells/laravel-api-parser",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Parse Laravel API responses",
   "main": "dist/index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "babel src -d dist",
     "lint": "eslint ./src",
     "test": "jest",
     "test:mutate": "stryker run",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@babel/cli": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@netsells/eslint-config": "^1.8.0",
     "@stryker-mutator/core": "^1.2.0",
@@ -43,8 +44,6 @@
     "eslint": "^4.10.0",
     "eslint-loader": "^2.1.2",
     "jest": "^24.7.1",
-    "jsdoc": "^3.5.5",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "jsdoc": "^3.5.5"
   }
 }
