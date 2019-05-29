@@ -55,6 +55,13 @@ describe('ResponseParser', () => {
                 });
             });
 
+            describe('falsy', () => {
+                it('returns an empty object', () => {
+                    expect(responseParser.getErrors(null))
+                        .toEqual({});
+                });
+            });
+
             describe('4XX', () => {
                 const GENERIC_ERROR_MESSAGE = 'Something is very wrong.';
                 const GENERIC_ERROR = Object.freeze({

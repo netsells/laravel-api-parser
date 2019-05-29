@@ -117,6 +117,10 @@ export default class ResponseParser {
      * @returns {Object}
      */
     getErrors(response) {
+        if (!response) {
+            return {};
+        }
+
         const parseExactFuncName = getErrorsFunctionName(response.status);
 
         if (this[parseExactFuncName]) {

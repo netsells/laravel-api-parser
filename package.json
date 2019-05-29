@@ -1,6 +1,6 @@
 {
   "name": "@netsells/laravel-api-parser",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Parse Laravel API responses",
   "main": "dist/index.js",
   "scripts": {
