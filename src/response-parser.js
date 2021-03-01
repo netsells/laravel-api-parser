@@ -1,3 +1,5 @@
+import APIErrorMessages from './api-error-messages';
+
 /**
  * Get the range for a response status returns 400 for 404s.
  *
@@ -110,17 +112,41 @@ export default class ResponseParser {
     }
 
     /**
+     * Throw errors for a response if they exist.
+     *
+     * @param {Object} response
+     *
+     * @throws {APIErrorMessages}
+     */
+    throwErrors(response) {
+        const errors = this.getErrors(response);
+
+        if (Object.keys(errors || {}).length) {
+            throw errors;
+        }
+    }
+
+    /**
      * Get errors for a response
+     *
+     * @param {Object} response
+     *
+     * @returns {APIErrorMessages}
+     */
+    getErrors(response) {
+        return response
+            ? new APIErrorMessages(this.getRawErrors(response))
+            : null;
+    }
+
+    /**
+     * Get errors for a response in a normal object
      *
      * @param {Object} response
      *
      * @returns {Object}
      */
-    getErrors(response) {
-        if (!response) {
-            return {};
-        }
-
+    getRawErrors(response) {
         const parseExactFuncName = getErrorsFunctionName(response.status);
 
         if (this[parseExactFuncName]) {
