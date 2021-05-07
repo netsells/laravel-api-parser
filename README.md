@@ -103,3 +103,5 @@ const errors = responseParser.getErrors(response); // { [null]: 'Not found!' }
 
 Pull requests are welcome! Ensure each PR includes a test case (which would fail
 without your changes) and that your build passes.
+
+It is created and maintained by the [Netsells team](https://netsells.co.uk/)
